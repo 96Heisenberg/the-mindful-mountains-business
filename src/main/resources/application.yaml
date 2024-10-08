@@ -1,0 +1,14 @@
+spring:
+  config:
+    import: classpath:external-config.yaml
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${app.mail.username}
+    password: ${app.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
