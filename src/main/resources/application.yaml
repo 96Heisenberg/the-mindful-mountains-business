@@ -1,14 +1,6 @@
 spring:
-  config:
-    import: classpath:mail-config.yaml
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${app.mail.username}
-    password: ${app.mail.password}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:localhost;DB_CLOSE_ON_EXIT=FALSE
+    username: admin
+    password:
