@@ -1,6 +1,6 @@
 package com.themindfulmountains.business.api;
 
-import com.themindfulmountains.business.payload.QueryItineraryPayload;
+import com.themindfulmountains.business.model.QueryItinerary;
 import com.themindfulmountains.business.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class QueryController {
     QueryService service;
 
     @PostMapping("/query")
-    public ResponseEntity<String> raiseQuery(@RequestBody QueryItineraryPayload queryItineraryPayload){
+    public ResponseEntity<String> raiseQuery(@RequestBody QueryItinerary queryItinerary){
                 return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
