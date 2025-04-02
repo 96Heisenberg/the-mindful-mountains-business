@@ -11,29 +11,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
-public class QueryController {
+public class BookingController {
 
     @Autowired
     QueryService service;
 
-    @PostMapping("/query")
-    public ResponseEntity<String> raiseQuery(@RequestBody QueryItinerary queryItinerary){
-        service.raiseQuery(queryItinerary);
+    @PostMapping("/booking")
+    public ResponseEntity<String> convertQueryToBooking(@RequestBody QueryItinerary queryItinerary){
                 return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @GetMapping("/query/all")
-    public ResponseEntity<String> getAllQueries(){
+    @GetMapping("/booking/all")
+    public ResponseEntity<String> getAllBookings(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @GetMapping("/query/{queryId}")
-    public ResponseEntity<String> getQueryById(){
+    @GetMapping("/booking/{bookingId}")
+    public ResponseEntity<String> getBookingById(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @PutMapping("/query/{queryId}")
-    public ResponseEntity<String> updateQueryById(){
+    @PutMapping("/booking/{bookingId}")
+    public ResponseEntity<String> updateBookingById(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 

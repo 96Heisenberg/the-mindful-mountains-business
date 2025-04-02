@@ -1,8 +1,6 @@
 package com.themindfulmountains.business.api;
 
 import com.themindfulmountains.business.model.QueryItinerary;
-import com.themindfulmountains.business.service.QueryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,29 +9,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
-public class QueryController {
+public class CustomerController {
 
-    @Autowired
-    QueryService service;
+    //Currently this controller will not be in use
+    //Added for latter phase
 
-    @PostMapping("/query")
-    public ResponseEntity<String> raiseQuery(@RequestBody QueryItinerary queryItinerary){
-        service.raiseQuery(queryItinerary);
+    @PostMapping("/add")
+    public ResponseEntity<String> addCustomerDetails(@RequestBody QueryItinerary queryItinerary){
                 return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @GetMapping("/query/all")
-    public ResponseEntity<String> getAllQueries(){
+    @GetMapping("/customer/all")
+    public ResponseEntity<String> getAllCustomers(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @GetMapping("/query/{queryId}")
-    public ResponseEntity<String> getQueryById(){
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<String> getCustomerById(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 
-    @PutMapping("/query/{queryId}")
-    public ResponseEntity<String> updateQueryById(){
+    @PutMapping("/customer/{customerId}")
+    public ResponseEntity<String> updateCustomerById(){
         return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
     }
 

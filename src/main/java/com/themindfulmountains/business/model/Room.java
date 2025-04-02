@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {
+    private String roomId;
+    private String propertyId;
     private String services; //Any meal plan included or not etc.
     private String roomName;
     private String propertyName;

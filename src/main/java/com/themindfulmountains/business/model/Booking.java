@@ -12,11 +12,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class QueryItinerary {
-    private String itineraryId;
-    private String queryPdfLink;
+public class Booking {
+    private String bookingId;
+    private String bookingPdfLink;
     private Integer noOfAdults;
     private Integer noOfChilds;
+    private BigDecimal advancePaid;
+    private BigDecimal amountDue;
     private BigDecimal b2bTotalItineraryCost;
     private BigDecimal b2cTotalItineraryCost;
     private Customer customer;

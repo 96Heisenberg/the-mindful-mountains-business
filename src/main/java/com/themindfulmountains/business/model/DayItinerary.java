@@ -13,10 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DayItinerary {
-    private Date itineraryDay;
     private boolean roomsOpted;
     private boolean transportOpted;
+    private Date itineraryDay;
     private List<Room> rooms;
-    //TODO Add Transport List object & 4,5,6
+    private List<Transport> transports;
+
 
 }
