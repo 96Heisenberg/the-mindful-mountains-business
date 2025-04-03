@@ -1,6 +1,17 @@
 spring:
+  #Driver configurations
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:localhost;DB_CLOSE_ON_EXIT=FALSE
-    username: admin
-    password:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: mmdb
+
+  # JPA configurations -
+  # DDL Auto enablement gives power hibernate to Automatically update the database schema based on the entity mappings.
+  # We have added liquibase hence its job to update tables now
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
