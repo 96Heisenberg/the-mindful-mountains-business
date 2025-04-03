@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/01_create-table-property.sql
+  - include:
+      file: db/changelog/02_alter-table-property-add-imageurls.sql
