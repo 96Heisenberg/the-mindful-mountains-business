@@ -1,12 +1,15 @@
 package com.themindfulmountains.business.service;
 
 import com.themindfulmountains.business.model.Property;
+import com.themindfulmountains.business.payload.request.PropertyRequestPayload;
+import com.themindfulmountains.business.payload.response.PropertyResponsePayload;
 import com.themindfulmountains.business.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService {
@@ -14,36 +17,61 @@ public class PropertyService {
     @Autowired
     PropertyRepository repository;
 
-    public void onboardProperty(Property property) {
-        //TODO Fix Property Id field and API by using separate payload
+    public void onboardProperty(PropertyRequestPayload payload) {
+        Property property = mapToProperty(payload);
         repository.save(property);
     }
 
-    // ✅ Get All Properties
-    public List<Property> getAllProperties() {
-        return repository.findAll();
+    public List<PropertyResponsePayload> getAllProperties() {
+        return repository.findAll()
+                .stream()
+                .map(this::mapPropertyToPropertyResponsePayload)
+                .collect(Collectors.toList());
     }
 
-    // ✅ Get Property by ID
-    public Optional<Property> getPropertyById(String propertyId) {
-        return repository.findById(propertyId);
+    public Optional<PropertyResponsePayload> getPropertyById(String propertyId) {
+        return repository.findById(propertyId)
+                .map(this::mapPropertyToPropertyResponsePayload);
     }
 
-    // ✅ Update Property by ID
-    public boolean updateProperty(String propertyId, Property updatedProperty) {
+    private PropertyResponsePayload mapPropertyToPropertyResponsePayload(Property property) {
+        PropertyResponsePayload payload = new PropertyResponsePayload();
+        payload.setPropertyId(property.getPropertyId());
+        payload.setName(property.getName());
+        payload.setLocation(property.getLocation());
+        payload.setContactNo(property.getContactNo());
+        payload.setEmailId(property.getEmailId());
+        payload.setImageUrls(property.getImageUrls());
+        payload.setActive(property.isActive());
+        return payload;
+    }
+
+
+    public boolean updateProperty(String propertyId, PropertyRequestPayload payload) {
         Optional<Property> existingProperty = repository.findById(propertyId);
         if (existingProperty.isPresent()) {
             Property property = existingProperty.get();
-            property.setActive(updatedProperty.isActive());
-            property.setName(updatedProperty.getName());
-            property.setLocation(updatedProperty.getLocation());
-            property.setContactNo(updatedProperty.getContactNo());
-            property.setEmailId(updatedProperty.getEmailId());
-            property.setImageUrls(updatedProperty.getImageUrls());
+            property.setName(payload.getName());
+            property.setLocation(payload.getLocation());
+            property.setContactNo(payload.getContactNo());
+            property.setEmailId(payload.getEmailId());
+            property.setImageUrls(payload.getImageUrls());
+            property.setActive(payload.isActive());
+
             repository.save(property);
             return true;
         }
         return false;
     }
 
+    private Property mapToProperty(PropertyRequestPayload payload) {
+        Property property = new Property();
+        property.setName(payload.getName());
+        property.setLocation(payload.getLocation());
+        property.setContactNo(payload.getContactNo());
+        property.setEmailId(payload.getEmailId());
+        property.setImageUrls(payload.getImageUrls());
+        property.setActive(payload.isActive());
+        return property;
+    }
 }
