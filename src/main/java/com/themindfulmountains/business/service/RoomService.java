@@ -77,6 +77,7 @@ public class RoomService {
         return false;
     }
 
+    //TODO Implement Mapstruct Later
     private Room mapToRoom(RoomRequestPayload payload) {
         Room room = new Room();
         room.setRoomName(payload.getRoomName());
