@@ -8,6 +8,7 @@ import com.themindfulmountains.business.repository.PropertyRepository;
 import com.themindfulmountains.business.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,10 @@ public class RoomService {
     }
 
     public List<RoomResponsePayload> getRoomsByPropertyId(String propertyId) {
-        return roomRepository.findByPropertyPropertyId(propertyId).stream()
+        return StringUtils.isEmpty(propertyId) ?
+                roomRepository.findAll().stream().map(this::convertToRoomResponsePayload)
+                        .collect(Collectors.toList())
+                : roomRepository.findByPropertyPropertyId(propertyId).stream()
                 .map(this::convertToRoomResponsePayload)
                 .collect(Collectors.toList());
     }

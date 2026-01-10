@@ -1,0 +1,127 @@
+{
+  "info": {
+    "name": "Mindful Mountains - Property & Room APIs",
+    "description": "Complete collection to test Property and Room APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Property APIs",
+      "item": [
+        {
+          "name": "Add Property",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/property",
+              "host": ["{{baseUrl}}"],
+              "path": ["property"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sunset Beach Resort\",\n  \"location\": \"Goa\",\n  \"contactNo\": \"9876543210\",\n  \"emailId\": \"sunset@beach.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Properties",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/property/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "all"]
+            }
+          }
+        },
+        {
+          "name": "Get Property By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/property/{{propertyId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "{{propertyId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Property",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/property/{{propertyId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "{{propertyId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sunset Beach Resort Premium\",\n  \"location\": \"North Goa\",\n  \"contactNo\": \"9876500000\",\n  \"emailId\": \"premium@beach.com\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Room APIs",
+      "item": [
+        {
+          "name": "Add Room To Property",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/property/{{propertyId}}/room",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "{{propertyId}}", "room"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomName\": \"Deluxe Sea View\",\n  \"services\": \"WiFi, AC, Breakfast\",\n  \"roomTariffB2C\": 5500,\n  \"roomTariffB2B\": 4500\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Rooms By Property ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/property/{{propertyId}}/room/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "{{propertyId}}", "room", "all"]
+            }
+          }
+        },
+        {
+          "name": "Get Room By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/property/room/{{roomId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "room", "{{roomId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Room",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/property/room/{{roomId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["property", "room", "{{roomId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomName\": \"Deluxe Sea View Premium\",\n  \"services\": \"WiFi, AC, Breakfast, Pool\",\n  \"roomTariffB2C\": 6500,\n  \"roomTariffB2B\": 5200\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
