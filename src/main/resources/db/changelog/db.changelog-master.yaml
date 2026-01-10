@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/02_alter-table-property-add-imageurls.sql
   - include:
       file: db/changelog/03_create-table-room.sql
+  - include:
+      file: db/changelog/04_create-table-customer.sql

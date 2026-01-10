@@ -122,6 +122,102 @@
           }
         }
       ]
+    },
+    {
+      "name": "Customer APIs",
+      "item": [
+        {
+          "name": "Add Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customer",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.sharma@gmail.com\",\n  \"age\": 32,\n  \"contactNo\": \"9876543210\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "Customer Added Successfully",
+              "originalRequest": {},
+              "status": "OK",
+              "code": 200,
+              "body": "Customer added successfully!"
+            }
+          ]
+        },
+        {
+          "name": "Get All Customers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/customer/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "all"]
+            }
+          },
+          "response": [
+            {
+              "name": "Customer List",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"customerId\": \"c123-abc\",\n    \"name\": \"Rahul Sharma\",\n    \"email\": \"rahul.sharma@gmail.com\",\n    \"age\": 32,\n    \"contactNo\": \"9876543210\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Customer By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/customer/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "{{customerId}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Customer Details",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"customerId\": \"c123-abc\",\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.sharma@gmail.com\",\n  \"age\": 32,\n  \"contactNo\": \"9876543210\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customer/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["customer", "{{customerId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.new@gmail.com\",\n  \"age\": 33,\n  \"contactNo\": \"9999999999\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "Customer Updated Successfully",
+              "status": "OK",
+              "code": 200,
+              "body": "Customer updated successfully!"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
