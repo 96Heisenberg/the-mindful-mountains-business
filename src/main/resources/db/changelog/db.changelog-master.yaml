@@ -7,3 +7,11 @@ databaseChangeLog:
       file: db/changelog/03_create-table-room.sql
   - include:
       file: db/changelog/04_create-table-customer.sql
+  - include:
+      file: db/changelog/05_create-table-query_itinerary.sql
+  - include:
+      file: db/changelog/06_create-table-day_itinerary.sql
+  - include:
+      file: db/changelog/07_create-table-transport.sql
+  - include:
+      file: db/changelog/08_day_itinerary_room.sql

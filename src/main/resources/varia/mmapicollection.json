@@ -218,6 +218,65 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Query APIs",
+      "item": [
+        {
+          "name": "Raise Query",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/query/{{customerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["query", "{{customerId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"noOfAdults\": 2,\n  \"noOfChilds\": 1,\n  \"b2bTotalItineraryCost\": 45000,\n  \"b2cTotalItineraryCost\": 52000,\n  \"queryPdfLink\": \"https://example.com/itinerary.pdf\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Queries",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/query/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["query", "all"]
+            }
+          }
+        },
+        {
+          "name": "Get Query By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/query/{{queryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["query", "{{queryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Query",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/query/{{queryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["query", "{{queryId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"noOfAdults\": 3,\n  \"noOfChilds\": 0,\n  \"b2bTotalItineraryCost\": 60000,\n  \"b2cTotalItineraryCost\": 68000\n}"
+            }
+          }
+        }
+      ]
     }
   ]
 }

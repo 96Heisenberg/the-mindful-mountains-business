@@ -1,40 +1,82 @@
 package com.themindfulmountains.business.api;
 
+import com.themindfulmountains.business.dto.response.QueryResponse;
+import com.themindfulmountains.business.mapper.QueryMapper;
 import com.themindfulmountains.business.model.QueryItinerary;
 import com.themindfulmountains.business.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/query")
 public class QueryController {
 
     @Autowired
-    QueryService service;
+    private QueryService service;
 
-    @PostMapping("/query")
-    public ResponseEntity<String> raiseQuery(@RequestBody QueryItinerary queryItinerary){
-        service.raiseQuery(queryItinerary);
-                return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
+    /**
+     * Raise a new query for a customer
+     */
+    @PostMapping("/{customerId}")
+    public ResponseEntity<String> raiseQuery(
+            @PathVariable String customerId,
+            @RequestBody QueryItinerary queryItinerary
+    ) {
+        service.raiseQuery(queryItinerary, customerId);
+        return ResponseEntity.ok("Query raised successfully!");
     }
 
-    @GetMapping("/query/all")
-    public ResponseEntity<String> getAllQueries(){
-        return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
+    /**
+     * Get all queries (Admin use)
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<QueryResponse>> getAllQueries() {
+        return ResponseEntity.ok(
+                service.getAllQueries()
+                        .stream()
+                        .map(QueryMapper::toResponse)
+                        .toList()
+        );
     }
 
-    @GetMapping("/query/{queryId}")
-    public ResponseEntity<String> getQueryById(){
-        return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
+    /**
+     * Get query by queryId
+     */
+    @GetMapping("/{queryId}")
+    public ResponseEntity<QueryResponse> getQueryById(
+            @PathVariable String queryId
+    ) {
+        return ResponseEntity.ok(
+                QueryMapper.toResponse(service.getQueryById(queryId))
+        );
     }
 
-    @PutMapping("/query/{queryId}")
-    public ResponseEntity<String> updateQueryById(){
-        return ResponseEntity.ok("Thanks for request Submission. Our team will contact you soon!");
+
+    /**
+     * Get all queries raised by a customer
+     */
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<QueryResponse>> getQueriesByCustomerId(
+            @PathVariable String customerId
+    ) {
+        return ResponseEntity.ok(service.getQueriesByCustomerId(customerId).stream()
+                .map(QueryMapper::toResponse)
+                .toList());
     }
 
+    /**
+     * Update query by queryId
+     */
+    @PutMapping("/{queryId}")
+    public ResponseEntity<String> updateQuery(
+            @PathVariable String queryId,
+            @RequestBody QueryItinerary queryItinerary
+    ) {
+        service.updateQuery(queryId, queryItinerary);
+        return ResponseEntity.ok("Query updated successfully!");
+    }
 }
