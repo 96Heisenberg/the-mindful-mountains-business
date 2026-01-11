@@ -81,7 +81,7 @@ public class QueryService {
 
         // Remove old days
         existing.getDayItineraries().clear();
-        
+
         log.info("Updated itinerary size {}", updated.getDayItineraries().size());
 
         for (DayItinerary incomingDay : updated.getDayItineraries()) {

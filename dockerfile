@@ -1,22 +1,23 @@
-# Use Java as the base image
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set working directory
+# ---------- Build stage ----------
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 
-# Copy Maven wrapper / pom and download dependencies first (for caching)
-COPY pom.xml ./
-RUN apk add --no-cache maven \
-&& mvn dependency:go-offline
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Copy application source
 COPY src ./src
-
-# Build the application
 RUN mvn clean package -DskipTests
 
-# Expose Spring Boot port
+# ---------- Runtime stage ----------
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+# Copy built jar from build stage
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Run the app
-CMD ["java", "-jar", "target/*.jar"]
+# Cloud Run requires listening on $PORT
+ENV PORT=8080
+
+CMD ["sh", "-c", "java -jar app.jar"]
