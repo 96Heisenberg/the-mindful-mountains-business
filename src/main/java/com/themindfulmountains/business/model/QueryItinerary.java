@@ -46,6 +46,6 @@ public class QueryItinerary {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "query", cascade = CascadeType.ALL)
-    private List<DayItinerary> dayItineraryList = new ArrayList<>();
+    @OneToMany(mappedBy = "query", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DayItinerary> dayItineraries = new ArrayList<>();
 }

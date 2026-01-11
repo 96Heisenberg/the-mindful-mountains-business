@@ -18,7 +18,7 @@ public class QueryMapper {
                 .queryPdfLink(query.getQueryPdfLink())
                 .customer(toCustomer(query.getCustomer()))
                 .dayItineraries(
-                        query.getDayItineraryList()
+                        query.getDayItineraries()
                                 .stream()
                                 .map(QueryMapper::toDayItinerary)
                                 .collect(Collectors.toList())

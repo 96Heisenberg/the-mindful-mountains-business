@@ -42,7 +42,7 @@ public class DayItinerary {
     )
     private List<Room> rooms = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "day_id")
     private List<Transport> transports = new ArrayList<>();
 }
