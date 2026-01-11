@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "ea7c1f59-f57c-4f5e-9b69-df9768a9cbf6",
+		"name": "Mindful Mountains - Property & Room APIs",
+		"description": "Complete collection to test Property and Room APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "51401656",
+		"_collection_link": "https://swapnilsen96-8164980.postman.co/workspace/Mindful-Mountain's-Workspace~39d51f71-c97f-4480-8b89-f5940b17ee6f/collection/51401656-ea7c1f59-f57c-4f5e-9b69-df9768a9cbf6?action=share&source=collection_link&creator=51401656"
+	},
+	"item": [
+		{
+			"name": "Property APIs",
+			"item": [
+				{
+					"name": "Add Property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sunset Beach Resort\",\n  \"location\": \"Goa\",\n  \"contactNo\": \"9876543210\",\n  \"emailId\": \"sunset@beach.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/property",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/property/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Property By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/property/{{propertyId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"{{propertyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Property",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sunset Beach Resort Premium\",\n  \"location\": \"North Goa\",\n  \"contactNo\": \"9876500000\",\n  \"emailId\": \"premium@beach.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/property/{{propertyId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"{{propertyId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room APIs",
+			"item": [
+				{
+					"name": "Add Room To Property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roomName\": \"Deluxe Sea View\",\n  \"services\": \"WiFi, AC, Breakfast\",\n  \"roomTariffB2C\": 5500,\n  \"roomTariffB2B\": 4500\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/property/{{propertyId}}/room",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"{{propertyId}}",
+								"room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rooms By Property ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/property/{{propertyId}}/room/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"{{propertyId}}",
+								"room",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/property/room/{{roomId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"room",
+								"{{roomId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roomName\": \"Deluxe Sea View Premium\",\n  \"services\": \"WiFi, AC, Breakfast, Pool\",\n  \"roomTariffB2C\": 6500,\n  \"roomTariffB2B\": 5200\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/property/room/{{roomId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"property",
+								"room",
+								"{{roomId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer APIs",
+			"item": [
+				{
+					"name": "Add Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.sharma@gmail.com\",\n  \"age\": 32,\n  \"contactNo\": \"9876543210\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customer",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Customer Added Successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "Customer added successfully!"
+						}
+					]
+				},
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customer/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customer",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Customer List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/customer/all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customer",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "[\n  {\n    \"customerId\": \"c123-abc\",\n    \"name\": \"Rahul Sharma\",\n    \"email\": \"rahul.sharma@gmail.com\",\n    \"age\": 32,\n    \"contactNo\": \"9876543210\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Customer By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customer",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Customer Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/customer/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customer",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"customerId\": \"c123-abc\",\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.sharma@gmail.com\",\n  \"age\": 32,\n  \"contactNo\": \"9876543210\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.new@gmail.com\",\n  \"age\": 33,\n  \"contactNo\": \"9999999999\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customer",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Customer Updated Successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.new@gmail.com\",\n  \"age\": 33,\n  \"contactNo\": \"9999999999\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customer/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customer",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "Customer updated successfully!"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Query APIs",
+			"item": [
+				{
+					"name": "Raise Query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"queryPdfLink\": \"https://cdn.themindfulmountains.com/queries/q-101.pdf\",\n    \"noOfAdults\": 2,\n    \"noOfChilds\": 1,\n    \"b2bTotalItineraryCost\": 38000,\n    \"b2cTotalItineraryCost\": 45000,\n    \"dayItineraries\": [\n        {\n            \"itineraryDay\": \"2026-01-20\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 3000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        },\n        {\n            \"itineraryDay\": \"2026-01-21\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 3000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/query/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"query",
+								"customer",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Queries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/query/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"query",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Query By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/query/{{queryId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"query",
+								"{{queryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Query By Customer Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/query/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"query",
+								"customer",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Query",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"queryPdfLink\": \"https://cdn.themindfulmountains.com/queries/q-101.pdf\",\n    \"noOfAdults\": 2,\n    \"noOfChilds\": 1,\n    \"b2bTotalItineraryCost\": 49000,\n    \"b2cTotalItineraryCost\": 45000,\n    \"dayItineraries\": [\n        {\n            \"itineraryDay\": \"2026-02-20\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 5000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        },\n        {\n            \"itineraryDay\": \"2026-02-21\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 6800,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/query/{{queryId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"query",
+								"{{queryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
