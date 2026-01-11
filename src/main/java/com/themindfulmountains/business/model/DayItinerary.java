@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,9 +40,9 @@ public class DayItinerary {
             joinColumns = @JoinColumn(name = "day_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id")
     )
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
-    private List<Transport> transports;
+    private List<Transport> transports = new ArrayList<>();
 }

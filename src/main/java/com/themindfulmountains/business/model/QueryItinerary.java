@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,5 +47,5 @@ public class QueryItinerary {
     private Customer customer;
 
     @OneToMany(mappedBy = "query", cascade = CascadeType.ALL)
-    private List<DayItinerary> dayItineraryList;
+    private List<DayItinerary> dayItineraryList = new ArrayList<>();
 }

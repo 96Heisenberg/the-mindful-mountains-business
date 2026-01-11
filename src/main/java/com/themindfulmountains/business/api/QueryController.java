@@ -21,7 +21,7 @@ public class QueryController {
     /**
      * Raise a new query for a customer
      */
-    @PostMapping("/{customerId}")
+    @PostMapping("/customer/{customerId}")
     public ResponseEntity<String> raiseQuery(
             @PathVariable String customerId,
             @RequestBody QueryItinerary queryItinerary
