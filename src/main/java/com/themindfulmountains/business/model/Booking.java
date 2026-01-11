@@ -21,8 +21,8 @@ public class Booking {
     private BigDecimal amountDue;
     private BigDecimal b2bTotalItineraryCost;
     private BigDecimal b2cTotalItineraryCost;
+    private BigDecimal profit;
     private Customer customer;
-    private List<Customer> coTravellers;
     private List<DayItinerary> dayItineraryList;
 
 }
