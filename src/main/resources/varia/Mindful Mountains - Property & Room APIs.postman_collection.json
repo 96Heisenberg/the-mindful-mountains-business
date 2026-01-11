@@ -409,15 +409,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"noOfAdults\": 2,\n  \"noOfChilds\": 1,\n  \"b2bTotalItineraryCost\": 45000,\n  \"b2cTotalItineraryCost\": 52000,\n  \"queryPdfLink\": \"https://example.com/itinerary.pdf\"\n}"
+							"raw": "{\n    \"queryPdfLink\": \"https://cdn.themindfulmountains.com/queries/q-101.pdf\",\n    \"noOfAdults\": 2,\n    \"noOfChilds\": 1,\n    \"b2bTotalItineraryCost\": 38000,\n    \"b2cTotalItineraryCost\": 45000,\n    \"dayItineraries\": [\n        {\n            \"itineraryDay\": \"2026-01-20\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 3000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        },\n        {\n            \"itineraryDay\": \"2026-01-21\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 3000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        }\n    ]\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/query/{{customerId}}",
+							"raw": "{{baseUrl}}/query/customer/{{customerId}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"query",
+								"customer",
 								"{{customerId}}"
 							]
 						}
@@ -466,13 +467,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/query/{{queryId}}",
+							"raw": "{{baseUrl}}/query/customer/{{customerId}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"query",
-								"{{queryId}}"
+								"customer",
+								"{{customerId}}"
 							]
 						}
 					},
@@ -490,7 +492,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"noOfAdults\": 3,\n  \"noOfChilds\": 0,\n  \"b2bTotalItineraryCost\": 60000,\n  \"b2cTotalItineraryCost\": 68000\n}"
+							"raw": "{\n    \"queryPdfLink\": \"https://cdn.themindfulmountains.com/queries/q-101.pdf\",\n    \"noOfAdults\": 2,\n    \"noOfChilds\": 1,\n    \"b2bTotalItineraryCost\": 49000,\n    \"b2cTotalItineraryCost\": 45000,\n    \"dayItineraries\": [\n        {\n            \"itineraryDay\": \"2026-02-20\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 5000,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        },\n        {\n            \"itineraryDay\": \"2026-02-21\",\n            \"roomsOpted\": true,\n            \"transportOpted\": true,\n            \"rooms\": [\n                {\n                    \"roomId\": \"fbe5140c-ca1d-4269-b767-970d891fe3ac\"\n                }\n            ],\n            \"transports\": [\n                {\n                    \"name\": \"Sedan Cab\",\n                    \"description\": \"Airport pickup & sightseeing\",\n                    \"contactNo\": \"9876543210\",\n                    \"bookingVia\": \"AGENT\",\n                    \"b2cTariff\": 6800,\n                    \"b2bTariff\": 2500\n                }\n            ]\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/query/{{queryId}}",
