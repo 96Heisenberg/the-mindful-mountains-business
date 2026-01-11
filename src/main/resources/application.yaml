@@ -15,3 +15,6 @@ spring:
       ddl-auto: none
   liquibase:
     enabled: true
+
+server:
+  port: ${PORT:8080}
