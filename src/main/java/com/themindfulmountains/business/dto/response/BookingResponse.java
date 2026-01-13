@@ -1,38 +1,23 @@
-package com.themindfulmountains.business.model;
+package com.themindfulmountains.business.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "booking")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Booking {
+public class BookingResponse {
 
-    @Id
-    @GeneratedValue
     private UUID bookingId;
-
     private UUID queryId;
     private UUID customerId;
-
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    private String querySnapshot;
+    private String customerName;
 
     private BigDecimal b2bTotal;
     private BigDecimal b2cTotal;
-
     private BigDecimal additionalCosts;
     private BigDecimal discountAmount;
     private BigDecimal finalCost;
@@ -41,6 +26,6 @@ public class Booking {
 
     private String summary;
     private String status;
-
     private LocalDateTime createdAt;
 }
+

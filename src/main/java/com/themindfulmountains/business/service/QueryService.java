@@ -141,7 +141,7 @@ public class QueryService {
             day.setTransportOpted(d.isTransportOpted());
             day.setQuery(existing);
             day.setNoOfUnits(d.getNoOfUnits());
-
+            log.info("No Uunits coming {}", day.getNoOfUnits());
             // Resolve Rooms
             if (d.getRooms() != null) {
                 List<Room> rooms = roomRepository.findAllById(
@@ -153,6 +153,7 @@ public class QueryService {
                 day.setRooms(rooms);
 
                 for (Room r : rooms) {
+                    log.info("No Uunits coming {}", d.getNoOfUnits());
                     totalB2B = totalB2B.add(r.getRoomTariffB2B().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
                     totalB2C = totalB2C.add(r.getRoomTariffB2C().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
                 }

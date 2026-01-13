@@ -1,5 +1,6 @@
 package com.themindfulmountains.business.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,5 +48,6 @@ public class QueryItinerary {
     private Customer customer;
 
     @OneToMany(mappedBy = "query", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<DayItinerary> dayItineraries = new ArrayList<>();
 }

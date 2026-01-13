@@ -17,3 +17,5 @@ databaseChangeLog:
       file: db/changelog/08_day_itinerary_room.sql
   - include:
       file: db/changelog/09_alter-table-day_itinerary.sql
+  - include:
+      file: db/changelog/10_create-table-booking.sql

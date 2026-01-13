@@ -1,8 +1,11 @@
 package com.themindfulmountains.business.api;
 
+import com.themindfulmountains.business.dto.request.BookingRequest;
 import com.themindfulmountains.business.dto.request.QueryRequest;
 import com.themindfulmountains.business.dto.response.QueryResponse;
 import com.themindfulmountains.business.mapper.QueryMapper;
+import com.themindfulmountains.business.model.Booking;
+import com.themindfulmountains.business.service.BookingService;
 import com.themindfulmountains.business.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,9 @@ public class QueryController {
 
     @Autowired
     private QueryService service;
+
+    @Autowired
+    private BookingService bookingService;
 
     /**
      * Raise a new query for a customer
@@ -86,4 +92,13 @@ public class QueryController {
         service.deleteQuery(queryId);
         return ResponseEntity.ok("Query deleted successfully");
     }
+
+    @PostMapping("/{queryId}/book")
+    public ResponseEntity<Booking> bookQuery(
+            @PathVariable String queryId,
+            @RequestBody BookingRequest request
+    ) {
+        return ResponseEntity.ok(bookingService.bookQuery(queryId, request));
+    }
+
 }
