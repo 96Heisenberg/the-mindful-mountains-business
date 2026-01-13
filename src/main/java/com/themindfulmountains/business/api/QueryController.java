@@ -1,8 +1,11 @@
 package com.themindfulmountains.business.api;
 
+import com.themindfulmountains.business.dto.request.BookingRequest;
+import com.themindfulmountains.business.dto.request.QueryRequest;
 import com.themindfulmountains.business.dto.response.QueryResponse;
 import com.themindfulmountains.business.mapper.QueryMapper;
-import com.themindfulmountains.business.model.QueryItinerary;
+import com.themindfulmountains.business.model.Booking;
+import com.themindfulmountains.business.service.BookingService;
 import com.themindfulmountains.business.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +21,21 @@ public class QueryController {
     @Autowired
     private QueryService service;
 
+    @Autowired
+    private BookingService bookingService;
+
     /**
      * Raise a new query for a customer
      */
     @PostMapping("/customer/{customerId}")
-    public ResponseEntity<String> raiseQuery(
+    public ResponseEntity<QueryResponse> raiseQuery(
             @PathVariable String customerId,
-            @RequestBody QueryItinerary queryItinerary
+            @RequestBody QueryRequest request
     ) {
-        service.raiseQuery(queryItinerary, customerId);
-        return ResponseEntity.ok("Query raised successfully!");
+        QueryResponse response = service.raiseQuery(request, customerId);
+        return ResponseEntity.ok(response);
     }
+
 
     /**
      * Get all queries (Admin use)
@@ -74,9 +81,24 @@ public class QueryController {
     @PutMapping("/{queryId}")
     public ResponseEntity<String> updateQuery(
             @PathVariable String queryId,
-            @RequestBody QueryItinerary queryItinerary
+            @RequestBody QueryRequest queryItinerary
     ) {
-        service.updateQuery(queryId, queryItinerary);
+        QueryResponse response = service.updateQuery(queryId, queryItinerary);
         return ResponseEntity.ok("Query updated successfully!");
     }
+
+    @DeleteMapping("/{queryId}")
+    public ResponseEntity<String> deleteQuery(@PathVariable String queryId) {
+        service.deleteQuery(queryId);
+        return ResponseEntity.ok("Query deleted successfully");
+    }
+
+    @PostMapping("/{queryId}/book")
+    public ResponseEntity<Booking> bookQuery(
+            @PathVariable String queryId,
+            @RequestBody BookingRequest request
+    ) {
+        return ResponseEntity.ok(bookingService.bookQuery(queryId, request));
+    }
+
 }

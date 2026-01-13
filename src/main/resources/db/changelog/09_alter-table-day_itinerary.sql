@@ -1,0 +1,2 @@
+ALTER TABLE day_itinerary
+ADD COLUMN IF NOT EXISTS no_of_units INTEGER;

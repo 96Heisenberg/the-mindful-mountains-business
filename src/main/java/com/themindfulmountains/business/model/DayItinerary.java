@@ -1,5 +1,6 @@
 package com.themindfulmountains.business.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class DayItinerary {
 
     @ManyToOne
     @JoinColumn(name = "query_id")
+    @JsonBackReference
     private QueryItinerary query;
 
     @ManyToMany
@@ -41,6 +43,7 @@ public class DayItinerary {
             inverseJoinColumns = @JoinColumn(name = "room_id")
     )
     private List<Room> rooms = new ArrayList<>();
+    private Integer noOfUnits;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "day_id")

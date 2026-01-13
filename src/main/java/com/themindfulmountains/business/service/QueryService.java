@@ -1,5 +1,11 @@
 package com.themindfulmountains.business.service;
 
+import com.themindfulmountains.business.dto.request.DayItineraryRequest;
+import com.themindfulmountains.business.dto.request.QueryRequest;
+import com.themindfulmountains.business.dto.request.RoomRef;
+import com.themindfulmountains.business.dto.request.TransportRequest;
+import com.themindfulmountains.business.dto.response.QueryResponse;
+import com.themindfulmountains.business.mapper.QueryMapper;
 import com.themindfulmountains.business.model.*;
 import com.themindfulmountains.business.repository.QueryRepository;
 import com.themindfulmountains.business.repository.RoomRepository;
@@ -8,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,34 +32,79 @@ public class QueryService {
     private RoomRepository roomRepository;
 
 
-    public void raiseQuery(QueryItinerary query, String customerId) {
+    public QueryResponse raiseQuery(QueryRequest request, String customerId) {
 
         Customer customer = customerService.getCustomerById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
+        QueryItinerary query = new QueryItinerary();
         query.setCustomer(customer);
+        query.setNoOfAdults(request.getNoOfAdults());
+        query.setNoOfChilds(request.getNoOfChilds());
 
-        log.info("No of days for trip {}", query.getDayItineraries().size());
+        BigDecimal totalB2B = BigDecimal.ZERO;
+        BigDecimal totalB2C = BigDecimal.ZERO;
 
-        query.getDayItineraries().forEach(day -> {
+        for(DayItineraryRequest d : request.getDayItineraries()) {
 
-            if (day.getRooms() != null) {
-                List<Room> fullRooms = day.getRooms().stream()
-                        .map(r -> roomRepository.findById(r.getRoomId())
-                                .orElseThrow(() -> new RuntimeException("Room not found: " + r.getRoomId())))
-                        .collect(Collectors.toList());
+            DayItinerary day = new DayItinerary();
+            day.setItineraryDay(java.sql.Date.valueOf(d.getItineraryDay()));
+            day.setRoomsOpted(d.isRoomsOpted());
+            day.setTransportOpted(d.isTransportOpted());
+            day.setNoOfUnits(d.getNoOfUnits());
+            day.setQuery(query);
 
-                day.setRooms(fullRooms);
-                day.getRooms().forEach(r ->log.info("Room Details are : {} and price {}",r.getRoomName() , r.getRoomTariffB2C()));
-                day.getTransports().forEach(t ->log.info("Transport Details are : {} and price {}",t.getB2bTariff() , t.getContactNo()));
+            // Resolve rooms
+            if (d.getRooms() != null) {
+                List<Room> rooms = roomRepository.findAllById(d.getRooms().stream().map(RoomRef::getRoomId).collect(Collectors.toList()));
+
+                day.setRooms(rooms);
+
+                for (Room r : rooms) {
+                    totalB2B = totalB2B.add(r.getRoomTariffB2B().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                    totalB2C = totalB2C.add(r.getRoomTariffB2C().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                }
+            }
+
+            // Map transports
+            if (d.getTransports() != null) {
+                for(TransportRequest t : d.getTransports()) {
+                    Transport tr = new Transport();
+                    tr.setName(t.getName());
+                    tr.setDescription(t.getDescription());
+                    tr.setContactNo(t.getContactNo());
+                    tr.setBookingVia(t.getBookingVia());
+                    tr.setB2bTariff(t.getB2bTariff());
+                    tr.setB2cTariff(t.getB2cTariff());
+
+                    totalB2B = totalB2B.add(t.getB2bTariff());
+                    totalB2C = totalB2C.add(t.getB2cTariff());
+
+                    day.getTransports().add(tr);
+
+                };
 
             }
 
-            day.setQuery(query);
-        });
+            query.getDayItineraries().add(day);
+        }
+
+        log.info("Prices are b2b {} b2c {}", totalB2B , totalB2C);
+        query.setB2bTotalItineraryCost(totalB2B);
+        query.setB2cTotalItineraryCost(totalB2C);
+
+        // Generate PDF link
+        query.setQueryPdfLink(generatePdfLink());
 
         repository.save(query);
+
+        return QueryMapper.toResponse(query);
     }
+
+    private String generatePdfLink() {
+        return "https://cdn.themindfulmountains.com/queries/q-" + System.currentTimeMillis() + ".pdf";
+    }
+
 
     public List<QueryItinerary> getAllQueries() {
         return repository.findAll();
@@ -67,74 +119,84 @@ public class QueryService {
     }
 
     @Transactional
-    public void updateQuery(String queryId, QueryItinerary updated) {
+    public QueryResponse updateQuery(String queryId, QueryRequest request) {
 
         QueryItinerary existing = repository.findById(queryId)
                 .orElseThrow(() -> new RuntimeException("Query not found"));
 
-        // Update scalar fields
-        existing.setQueryPdfLink(updated.getQueryPdfLink());
-        existing.setNoOfAdults(updated.getNoOfAdults());
-        existing.setNoOfChilds(updated.getNoOfChilds());
-        existing.setB2bTotalItineraryCost(updated.getB2bTotalItineraryCost());
-        existing.setB2cTotalItineraryCost(updated.getB2cTotalItineraryCost());
+        existing.setNoOfAdults(request.getNoOfAdults());
+        existing.setNoOfChilds(request.getNoOfChilds());
 
-        // Remove old days
+        // Clear existing days (orphan removal will handle deletes)
         existing.getDayItineraries().clear();
 
-        log.info("Updated itinerary size {}", updated.getDayItineraries().size());
+        BigDecimal totalB2B = BigDecimal.ZERO;
+        BigDecimal totalB2C = BigDecimal.ZERO;
 
-        for (DayItinerary incomingDay : updated.getDayItineraries()) {
+        for (DayItineraryRequest d : request.getDayItineraries()) {
 
             DayItinerary day = new DayItinerary();
-            day.setItineraryDay(incomingDay.getItineraryDay());
-            day.setRoomsOpted(incomingDay.isRoomsOpted());
-            day.setTransportOpted(incomingDay.isTransportOpted());
+            day.setItineraryDay(java.sql.Date.valueOf(d.getItineraryDay()));
+            day.setRoomsOpted(d.isRoomsOpted());
+            day.setTransportOpted(d.isTransportOpted());
             day.setQuery(existing);
+            day.setNoOfUnits(d.getNoOfUnits());
+            log.info("No Uunits coming {}", day.getNoOfUnits());
+            // Resolve Rooms
+            if (d.getRooms() != null) {
+                List<Room> rooms = roomRepository.findAllById(
+                        d.getRooms().stream()
+                                .map(RoomRef::getRoomId)
+                                .toList()
+                );
 
-            // Rooms (ManyToMany, already exist)
-            if (incomingDay.getRooms() != null) {
-                List<Room> rooms = incomingDay.getRooms().stream()
-                        .map(r -> roomRepository.findById(r.getRoomId())
-                                .orElseThrow(() -> new RuntimeException("Room not found: " + r.getRoomId())))
-                        .toList();
                 day.setRooms(rooms);
+
+                for (Room r : rooms) {
+                    log.info("No Uunits coming {}", d.getNoOfUnits());
+                    totalB2B = totalB2B.add(r.getRoomTariffB2B().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                    totalB2C = totalB2C.add(r.getRoomTariffB2C().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                }
             }
 
-            // 🚨 IMPORTANT: add day to parent BEFORE transports
+            // Map Transports
+            if (d.getTransports() != null) {
+                for (TransportRequest t : d.getTransports()) {
+                    Transport tr = new Transport();
+                    tr.setName(t.getName());
+                    tr.setDescription(t.getDescription());
+                    tr.setContactNo(t.getContactNo());
+                    tr.setBookingVia(t.getBookingVia());
+                    tr.setB2bTariff(t.getB2bTariff());
+                    tr.setB2cTariff(t.getB2cTariff());
+
+                    totalB2B = totalB2B.add(t.getB2bTariff());
+                    totalB2C = totalB2C.add(t.getB2cTariff());
+
+                    day.getTransports().add(tr);
+                }
+            }
+
             existing.getDayItineraries().add(day);
         }
 
-        log.info("Existing itinerary size {}", existing.getDayItineraries().size());
-
-        // 🚨 Persist days FIRST
-        repository.saveAndFlush(existing);
-
-        // 🚨 NOW attach transports (day_id exists now)
-        for (int i = 0; i < existing.getDayItineraries().size(); i++) {
-            DayItinerary persistedDay = existing.getDayItineraries().get(i);
-            DayItinerary incomingDay = updated.getDayItineraries().get(i);
-
-            if (incomingDay.getTransports() != null) {
-                List<Transport> transports = incomingDay.getTransports().stream()
-                        .map(t -> {
-                            Transport tr = new Transport();
-                            tr.setName(t.getName());
-                            tr.setDescription(t.getDescription());
-                            tr.setContactNo(t.getContactNo());
-                            tr.setBookingVia(t.getBookingVia());
-                            tr.setB2cTariff(t.getB2cTariff());
-                            tr.setB2bTariff(t.getB2bTariff());
-                            return tr;
-                        })
-                        .toList();
-
-                persistedDay.getTransports().addAll(transports);
-            }
-        }
+        existing.setB2bTotalItineraryCost(totalB2B);
+        existing.setB2cTotalItineraryCost(totalB2C);
+        existing.setQueryPdfLink(generatePdfLink()); // regenerate
 
         repository.save(existing);
+
+        return QueryMapper.toResponse(existing);
     }
+
+    @Transactional
+    public void deleteQuery(String queryId) {
+        if (!repository.existsById(queryId)) {
+            throw new RuntimeException("Query not found with id: " + queryId);
+        }
+        repository.deleteById(queryId);
+    }
+
 
 
 
