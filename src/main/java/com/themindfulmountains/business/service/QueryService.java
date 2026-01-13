@@ -51,6 +51,7 @@ public class QueryService {
             day.setItineraryDay(java.sql.Date.valueOf(d.getItineraryDay()));
             day.setRoomsOpted(d.isRoomsOpted());
             day.setTransportOpted(d.isTransportOpted());
+            day.setNoOfUnits(d.getNoOfUnits());
             day.setQuery(query);
 
             // Resolve rooms
@@ -60,8 +61,8 @@ public class QueryService {
                 day.setRooms(rooms);
 
                 for (Room r : rooms) {
-                    totalB2B = totalB2B.add(r.getRoomTariffB2B());
-                    totalB2C = totalB2C.add(r.getRoomTariffB2C());
+                    totalB2B = totalB2B.add(r.getRoomTariffB2B().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                    totalB2C = totalB2C.add(r.getRoomTariffB2C().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
                 }
             }
 
@@ -139,6 +140,7 @@ public class QueryService {
             day.setRoomsOpted(d.isRoomsOpted());
             day.setTransportOpted(d.isTransportOpted());
             day.setQuery(existing);
+            day.setNoOfUnits(d.getNoOfUnits());
 
             // Resolve Rooms
             if (d.getRooms() != null) {
@@ -151,8 +153,8 @@ public class QueryService {
                 day.setRooms(rooms);
 
                 for (Room r : rooms) {
-                    totalB2B = totalB2B.add(r.getRoomTariffB2B());
-                    totalB2C = totalB2C.add(r.getRoomTariffB2C());
+                    totalB2B = totalB2B.add(r.getRoomTariffB2B().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
+                    totalB2C = totalB2C.add(r.getRoomTariffB2C().multiply(BigDecimal.valueOf(d.getNoOfUnits())));
                 }
             }
 

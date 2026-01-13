@@ -39,7 +39,7 @@ public class QueryItinerary {
 
     @Column(name = "b2c_total_cost")
     private BigDecimal b2cTotalItineraryCost;
-
+    
     /* ================= RELATIONS ================= */
 
     @ManyToOne

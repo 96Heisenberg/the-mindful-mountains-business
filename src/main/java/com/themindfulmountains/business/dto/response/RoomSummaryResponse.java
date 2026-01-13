@@ -16,4 +16,6 @@ public class RoomSummaryResponse {
 
     private BigDecimal roomTariffB2C;
     private BigDecimal roomTariffB2B;
+    private Integer noOfUnits;
+
 }

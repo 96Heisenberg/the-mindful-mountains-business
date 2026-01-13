@@ -41,6 +41,7 @@ public class DayItinerary {
             inverseJoinColumns = @JoinColumn(name = "room_id")
     )
     private List<Room> rooms = new ArrayList<>();
+    private Integer noOfUnits;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "day_id")

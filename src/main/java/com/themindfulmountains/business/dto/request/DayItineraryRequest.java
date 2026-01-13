@@ -15,6 +15,7 @@ public class DayItineraryRequest {
     private boolean transportOpted;
 
     private List<RoomRef> rooms;
+    private Integer noOfUnits;
     private List<TransportRequest> transports;
 }
 
