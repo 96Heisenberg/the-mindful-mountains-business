@@ -188,6 +188,15 @@ public class QueryService {
         return QueryMapper.toResponse(existing);
     }
 
+    @Transactional
+    public void deleteQuery(String queryId) {
+        if (!repository.existsById(queryId)) {
+            throw new RuntimeException("Query not found with id: " + queryId);
+        }
+        repository.deleteById(queryId);
+    }
+
+
 
 
 }

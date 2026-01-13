@@ -80,4 +80,10 @@ public class QueryController {
         QueryResponse response = service.updateQuery(queryId, queryItinerary);
         return ResponseEntity.ok("Query updated successfully!");
     }
+
+    @DeleteMapping("/{queryId}")
+    public ResponseEntity<String> deleteQuery(@PathVariable String queryId) {
+        service.deleteQuery(queryId);
+        return ResponseEntity.ok("Query deleted successfully");
+    }
 }
