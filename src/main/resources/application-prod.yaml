@@ -2,7 +2,7 @@ spring:
   #Driver configurations
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://35.200.209.29:5432/postgres
     username: postgres
     password: mmdb
 
@@ -18,4 +18,4 @@ spring:
 
 server:
   port: ${PORT:8080}
-  address: 0:0:0:0
+  address: 0.0.0.0
