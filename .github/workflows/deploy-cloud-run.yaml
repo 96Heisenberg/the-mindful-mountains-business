@@ -52,4 +52,3 @@ jobs:
             --timeout 300 \
             --cpu-boost \
             --set-env-vars "SPRING_PROFILES_ACTIVE=prod"
-            --quiet
