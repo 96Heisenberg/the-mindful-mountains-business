@@ -25,4 +25,4 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
 # Use optimal JVM flags for container environments
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-Dserver.port=8080", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dserver.port=8080", "-jar", "app.jar"]
