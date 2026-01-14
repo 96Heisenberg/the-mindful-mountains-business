@@ -1,10 +1,4 @@
 spring:
-  #Driver configurations
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://35.200.209.29:5432/postgres
-    username: postgres
-    password: mmdb@1234
   main:
     lazy-initialization: true
 
@@ -17,7 +11,3 @@ spring:
       ddl-auto: none
   liquibase:
     enabled: true
-
-server:
-  port: ${PORT:8080}
-  address: 0.0.0.0
