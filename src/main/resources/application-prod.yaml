@@ -4,7 +4,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://35.200.209.29:5432/postgres
     username: postgres
-    password: mmdb
+    password: mmdb@1234
 
   # JPA configurations -
   # DDL Auto enablement gives power hibernate to Automatically update the database schema based on the entity mappings.
