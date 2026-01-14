@@ -1,14 +1,28 @@
+name: Deploy Backend to Cloud Run
+
+env:
+  SERVICE_NAME: mindful-mountain-business
+  REGION: us-central1
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  dockerize-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    # Define job-level env variables to ensure consistency
-    env:
-      IMAGE_NAME: mindful-mountain-business
-      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -18,23 +32,22 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
-      - name: Configure Docker
+      - name: Configure Docker for GCR
         run: gcloud auth configure-docker --quiet
 
       - name: Build and Push Docker Image
-        # We construct the full path here using the env variables defined above
         run: |
-          FULL_IMAGE_PATH="gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest"
-          docker build -t $FULL_IMAGE_PATH .
-          docker push $FULL_IMAGE_PATH
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --image gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest \
+          gcloud run deploy $SERVICE_NAME \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest \
             --platform managed \
-            --region us-central1 \
+            --region $REGION \
             --allow-unauthenticated \
             --memory 1Gi \
             --cpu 1 \
-            --timeout 300
+            --timeout 300 \
+            --set-env-vars "SPRING_PROFILES_ACTIVE=prod"
