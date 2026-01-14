@@ -1,5 +1,6 @@
 # ---------- Stage 1: Build ----------
-FROM maven:3.8.4-openjdk-17-slim AS build
+# Using Eclipse Temurin for the build stage
+FROM maven:3.8.8-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -12,16 +13,16 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # ---------- Stage 2: Runtime ----------
-FROM openjdk:17-jdk-slim
+# Using the lightweight JRE image for production
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
 # Copy the jar from the build stage
-# Note: Ensure the jar name matches your artifactId in pom.xml
 COPY --from=build /app/target/*.jar app.jar
 
-# Cloud Run uses the PORT env var (default 8080)
+# Cloud Run requirement
 EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "-Dserver.port=8080", "-jar", "app.jar"]
+# Use optimal JVM flags for container environments
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-Dserver.port=8080", "-jar", "app.jar"]
