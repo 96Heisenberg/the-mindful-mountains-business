@@ -7,7 +7,7 @@ import com.google.cloud.storage.StorageOptions;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.themindfulmountains.business.model.QueryItinerary;
 import com.themindfulmountains.business.repository.QueryRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
