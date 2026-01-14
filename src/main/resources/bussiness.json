@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gothic-augury-439121-p8",
+  "private_key_id": "6599e75da674f762def922fe14877ff327cae945",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCh9ub4lbXUynRS\nPoCZ4geir64355/JmIceZIiB7yLeYCfFH7yLOBp9MnDlZ+A9mJb6gA2q4c0zUcZ3\nIDsG4Qh0WfeBfNwkZd/xLKP1Xyrwg++923Hx91q0jlkLiiteCz8wfhbeyHvD6eEZ\nS0uwxT+EAQxVKGZSV4fEcAG8ZP3lDc9UCo8Yur5UaNs9K1oubz6NbZwozY13r0nk\nVnIfhtC7mYDmGdgjtc3yy7cAVHBJjINxLW83NeeUkDgV3Zavv5MTzaHluUvd0eSe\nmy7sLE1OTAPvz19N7FrH1wHlx0ThC/Nu3aNXgtizr+xhu1zbop5Ro1NEWjSsVxtc\nBN4aZYrpAgMBAAECggEABuGnKZuuyJY7f/0Q2LjuSx68v7pTIy0cXJG37RFcgWdD\neVAiYiXlljks68pQkD1p+MW1DvQeFFaeoJQZfe7UvaDO78z+y3samzQi2TuMZwCs\nEHyA6F9ylqZPqTpbIllG+4f378pD2+yVeE4nLqEK1FB5FisrwcbfSVza7ga6dN9i\ndyc51sJbK/dAPkRCiLZuwy+sqssanmIP2kM3ADcSz5XoLjRRxysZNGFptbwbQVzO\nHbKpwG+il1FUEcUoESqK6iWQ/UiQl+vNcUtSSWVpkQmQ7DxMs5bapaiNz9JYy/ZW\ny/B6TOnqGcSEmtR9Px6Z//Qntvvja5FA1dGTOSBrqwKBgQDegrC7MFYZkVH99eAH\ndkP8OK52oh28vfRq+FqJFXkS1h8KoyXTCdeuxwDJZuyk0q04r/zQR1C+7b4o7IaD\nVmmQ+brk27861uZxTXHx28gAWWEsNY9wbk1XV3smM/3SbDpJSWJK+MgDv2tnFqMI\n5l/8xtrfRIofXyFjxV7EBIu8JwKBgQC6V2DQ1ElvuwGEAWvjJ+BJTq9BP4xV5e9v\n+CjX8gFT7H3W1OdtFV/D7M3/7Vx8xMihoqQZV7+82/fDlG0zluDHy8pHdva43Dlt\nDm+nvM1jfGvJ6L/qeIITzXkY2Cf+cuA2gmfJU0OKpuQukHQHUXEMahXBz8QYHBlo\nypoN4pUabwKBgEDn5H+l+OeaYU1wZHoowGoZaqLGZWBCFMMDUP192wRom0NyFb16\nuISOHiehs1Pc9JR9mYRz2RToqrirTg2PrlmQzzik9SJHv467ZYqEbtHTQKoxsXa9\nZigdJ5ocPmUcFuB73IU8DrQxKTY3/zTAZq2IoB3Sk2vVRxsgXqVVIiGvAoGAOPfl\nvXJpUSNW/0h/916Fj2Pi6IvJF6nIXe78bairB0FR55AHgK38LSYEhK3IjMyMmf3j\nNWxCTjbhtIV4LUF/TxXaraaNH08Ur2audBWgpT2wpnXl1oUpH2y+DP5om737Fi8g\nE8jE6WrEcAfxsRsQ+L6mEC64wLY2fncSShRviTkCgYEAo5X0f5YMVXnkecFzHLbn\nVKUR93ZauTvwlA6VAWVTz86waQM+Cjt3tkcTLqT9Nwt52cNyU4CO3w85uSDeoZwy\na1ijl2wEl/gHnnO+GozoP9diHk0YhVOWZ+upsc402YYzPz6EQ5hCl4xh1uTj6ieJ\nrAWoou4jFW2Kf+WYY+iT7Ec=\n-----END PRIVATE KEY-----\n",
+  "client_email": "mindful-mountain-business@gothic-augury-439121-p8.iam.gserviceaccount.com",
+  "client_id": "110040089005974091110",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mindful-mountain-business%40gothic-augury-439121-p8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
