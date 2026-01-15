@@ -28,10 +28,15 @@ public class PdfExportService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    private final Storage storage = StorageOptions.getDefaultInstance().getService();
+    @Autowired
+    private Storage storage;
 
-    @Value("${gcp.bucket.name}")
+    @Value("${spring.cloud.gcp.bucket.name}")
     private String bucketName;
+
+    private String folderName;
+
+    private String template;
 
     @Transactional
     public String generateAndUploadPdf(String queryId) throws IOException {
@@ -40,7 +45,7 @@ public class PdfExportService {
 
         // 2. Prepare Thymeleaf Context
         Context context = new Context();
-        context.setVariable("QueryItinerary", queryItinerary);
+        context.setVariable("itinerary", queryItinerary);
 
         // 3. Render HTML to String
         String htmlContent = templateEngine.process("query", context);
@@ -51,7 +56,8 @@ public class PdfExportService {
         byte[] pdfBytes = target.toByteArray();
 
         // 5. Upload to GCP
-        String fileName = "query_" + System.currentTimeMillis() + ".pdf";
+        String folderName = "Itineraries/";
+        String fileName = folderName +"query_" + System.currentTimeMillis() + ".pdf";
         BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, fileName)
                 .setContentType("application/pdf")
                 // ACL makes it public; ensure your bucket allows public ACLs

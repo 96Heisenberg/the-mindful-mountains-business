@@ -28,3 +28,4 @@ replay_pid*
 
 # Secret Files #
 src/main/resources/external-config.yaml
+src/main/resources/gcp-key.json

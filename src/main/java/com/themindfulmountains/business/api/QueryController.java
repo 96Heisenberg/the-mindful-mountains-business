@@ -6,11 +6,13 @@ import com.themindfulmountains.business.dto.response.QueryResponse;
 import com.themindfulmountains.business.mapper.QueryMapper;
 import com.themindfulmountains.business.model.Booking;
 import com.themindfulmountains.business.service.BookingService;
+import com.themindfulmountains.business.service.PdfExportService;
 import com.themindfulmountains.business.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -23,6 +25,9 @@ public class QueryController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private PdfExportService pdfExportService;
 
     /**
      * Raise a new query for a customer
@@ -99,6 +104,15 @@ public class QueryController {
             @RequestBody BookingRequest request
     ) {
         return ResponseEntity.ok(bookingService.bookQuery(queryId, request));
+    }
+
+    @PostMapping("/pdf/{queryId}")
+    public ResponseEntity<String> genratePdf(@PathVariable String queryId) {
+        try {
+            return ResponseEntity.ok(pdfExportService.generateAndUploadPdf(queryId));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

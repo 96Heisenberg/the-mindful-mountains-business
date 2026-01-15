@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+      - feature/pull_pdf
 
 jobs:
   build-and-deploy:

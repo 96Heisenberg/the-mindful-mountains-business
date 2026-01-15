@@ -15,7 +15,17 @@ spring:
       ddl-auto: none
   liquibase:
     enabled: true
-
+  cloud:
+    gcp:
+      bucket:
+        name: mindful_mountain_business
+      project-id: gothic-augury-439121-p8
+      storage:
+        credentials:
+          #location: classpath:gcp-key.json
+          #location: ${{ secrets.GCP_SA_KEY }}
+      #bucket details
 server:
   port: ${PORT:8080}
   address: 0.0.0.0
+

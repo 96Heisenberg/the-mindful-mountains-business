@@ -1,54 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Travel Itinerary</title>
+
     <style>
-        body { font-family: Arial; }
-        .header { text-align: center; }
-        .logo { width: 150px; }
-        table { width:100%; border-collapse: collapse; }
-        th, td { border:1px solid black; padding:8px; }
-        th { background:#f2f2f2; }
+        body { font-family: Arial, sans-serif; font-size: 13px; color: #333; }
+        .header { text-align: center; border-bottom: 2px solid #444; margin-bottom: 20px; }
+        .section { margin-top: 15px; }
+        .section-title { font-weight: bold; background-color: #f0f0f0; padding: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        th, td { border: 1px solid #999; padding: 6px; }
+        th { background-color: #f2f2f2; }
+        .right { text-align: right; }
+        .total-box { width: 40%; float: right; margin-top: 20px; }
+        .clear { clear: both; }
     </style>
 </head>
+
 <body>
 
+<!-- ================= HEADER ================= -->
 <div class="header">
-    <img src="classpath:logo.png" class="logo"/>
-    <h2>Query Intenary</h2>
+    <h2>Travel Itinerary</h2>
+    <p>Itinerary ID:
+        <b th:text="${itinerary?.itineraryId ?: 'N/A'}"></b>
+    </p>
 </div>
 
-<p><b>Customer:</b> <span th:text="${invoice.customerName}"></span></p>
-<p><b>Email:</b> <span th:text="${invoice.address}"></span></p>
-<p><b>Contact Number</b> <span th:text="${invoice.invoiceDate}"></span></p>
+<!-- ================= CUSTOMER ================= -->
+<div class="section">
+    <div class="section-title">Customer Details</div>
 
-<table>
-    <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Total</th>
-    </tr>
-    <tr th:each="item : ${items}">
-        <td th:text="${item.productName}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${item.price}"></td>
-        <td th:text="${item.quantity * item.price}"></td>
-    </tr>
-    <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Total</th>
-    </tr>
-    <tr th:each="item : ${items}">
-        <td th:text="${item.productName}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${item.price}"></td>
-        <td th:text="${item.quantity * item.price}"></td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td th:text="${itinerary?.customer?.name ?: 'N/A'}"></td>
 
-<h3>Total: ₹ <span th:text="${invoice.totalAmount}"></span></h3>
+            <th>Email</th>
+            <td th:text="${itinerary?.customer?.email ?: 'N/A'}"></td>
+        </tr>
+        <tr>
+            <th>Contact</th>
+            <td th:text="${itinerary?.customer?.contactNo ?: 'N/A'}"></td>
+
+            <th>Age</th>
+            <td th:text="${itinerary?.customer?.age ?: '-'}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- ================= ITINERARY SUMMARY ================= -->
+<div class="section">
+    <div class="section-title">Itinerary Summary</div>
+
+    <table>
+        <tr>
+            <th>No. of Adults</th>
+            <td th:text="${itinerary?.noOfAdults ?: 0}"></td>
+
+            <th>No. of Children</th>
+            <td th:text="${itinerary?.noOfChilds ?: 0}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- ================= DAY WISE ITINERARY ================= -->
+<div class="section">
+    <div class="section-title">Day-wise Itinerary</div>
+
+    <div th:if="${itinerary?.dayItineraries != null and !#lists.isEmpty(itinerary.dayItineraries)}">
+
+        <div th:each="day, stat : ${itinerary.dayItineraries}">
+            <h4>
+                Day <span th:text="${stat.index + 1}"></span> -
+                <span th:text="${day.itineraryDay != null ? #dates.format(day.itineraryDay,'dd-MMM-yyyy') : 'N/A'}"></span>
+            </h4>
+
+            <table>
+                <tr>
+                    <th>Rooms Opted</th>
+                    <td th:text="${day.roomsOpted ? 'Yes' : 'No'}"></td>
+
+                    <th>Transport Opted</th>
+                    <td th:text="${day.transportOpted ? 'Yes' : 'No'}"></td>
+
+                    <th>No. of Units</th>
+                    <td th:text="${day.noOfUnits ?: 0}"></td>
+                </tr>
+            </table>
+
+            <!-- Transport -->
+
+
+            <hr/>
+        </div>
+
+    </div>
+
+    <div th:if="${itinerary?.dayItineraries == null or #lists.isEmpty(itinerary.dayItineraries)}">
+        <p>No day itinerary available.</p>
+    </div>
+</div>
+
+<!-- ================= TOTAL COST ================= -->
+<div class="total-box">
+    <table>
+        <tr>
+            <th>B2B Total</th>
+            <td class="right" th:text="${itinerary?.b2bTotalItineraryCost ?: 0}"></td>
+        </tr>
+        <tr>
+            <th>B2C Total</th>
+            <td class="right" th:text="${itinerary?.b2cTotalItineraryCost ?: 0}"></td>
+        </tr>
+    </table>
+</div>
+
+<div class="clear"></div>
 
 </body>
 </html>
