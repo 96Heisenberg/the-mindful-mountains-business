@@ -16,4 +16,14 @@ public class GcsConfig {
         // On Cloud Run: It uses the built-in Service Account
         return StorageOptions.getDefaultInstance().getService();
     }
+
+    //Local Config
+//    @Bean
+//    public Storage storage() throws IOException {
+//        InputStream keyFile = new ClassPathResource("gcp-key.json").getInputStream();
+//        return StorageOptions.newBuilder()
+//                .setCredentials(GoogleCredentials.fromStream(keyFile))
+//                .build()
+//                .getService();
+//    }
 }
