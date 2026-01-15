@@ -52,4 +52,4 @@ jobs:
             --cpu 1 \
             --timeout 300 \
             --cpu-boost \
-            --set-env-vars "SPRING_PROFILES_ACTIVE=prod",GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }},GCP_BUCKET_NAME=mindful_mountain_business"
+            --set-env-vars "SPRING_PROFILES_ACTIVE=prod"
