@@ -5,6 +5,8 @@ spring:
     url: jdbc:postgresql://35.200.209.29:5432/postgres
     username: postgres
     password: mmdb@1234
+  main:
+    lazy-initialization: true
 
   # JPA configurations -
   # DDL Auto enablement gives power hibernate to Automatically update the database schema based on the entity mappings.
@@ -23,7 +25,7 @@ spring:
       storage:
         credentials:
           #location: classpath:gcp-key.json
-          #location: ${{ secrets.GCP_SA_KEY }}
+          location: ${{ secrets.GCP_SA_KEY }}
       #bucket details
 server:
   port: ${PORT:8080}
