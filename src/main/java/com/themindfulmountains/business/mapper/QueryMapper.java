@@ -45,6 +45,7 @@ public class QueryMapper {
                         d.getRooms()
                                 .stream()
                                 .map(r -> RoomSummaryResponse.builder()
+                                        .propertyId(r.getProperty().getPropertyId())
                                         .roomId(r.getRoomId())
                                         .roomName(r.getRoomName())
                                         .roomTariffB2C(r.getRoomTariffB2C())

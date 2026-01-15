@@ -107,7 +107,7 @@ public class QueryController {
     }
 
     @PostMapping("/pdf/{queryId}")
-    public ResponseEntity<String> genratePdf(@PathVariable String queryId) {
+    public ResponseEntity<String> generatePdf(@PathVariable String queryId) {
         try {
             return ResponseEntity.ok(pdfExportService.generateAndUploadPdf(queryId));
         } catch (IOException e) {

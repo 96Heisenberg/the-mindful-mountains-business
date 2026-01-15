@@ -18,7 +18,6 @@ public class DayItineraryResponse {
 
     private boolean roomsOpted;
     private boolean transportOpted;
-
     private List<RoomSummaryResponse> rooms;
     private List<TransportResponse> transports;
 }

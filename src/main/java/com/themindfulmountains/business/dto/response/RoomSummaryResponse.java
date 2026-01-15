@@ -10,10 +10,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class RoomSummaryResponse {
-
+    private String propertyId;
     private String roomId;
     private String roomName;
-
     private BigDecimal roomTariffB2C;
     private BigDecimal roomTariffB2B;
     private Integer noOfUnits;
