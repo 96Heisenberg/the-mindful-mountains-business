@@ -69,7 +69,7 @@ public class PdfExportService {
         byte[] pdfBytes = target.toByteArray();
 
         // 5. Upload to GCP
-        String fileName = invoice +"query_" + System.currentTimeMillis() + ".pdf";
+        String fileName = invoice +"query_" + queryItinerary.getItineraryId() + System.currentTimeMillis()  + ".pdf";
         BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, fileName)
                 .setContentType("application/pdf")
                 // ACL makes it public; ensure your bucket allows public ACLs
