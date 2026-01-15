@@ -41,6 +41,7 @@ public class QueryMapper {
                 .itineraryDay(d.getItineraryDay())
                 .roomsOpted(d.isRoomsOpted())
                 .transportOpted(d.isTransportOpted())
+                .noOfUnits(d.getNoOfUnits())
                 .rooms(
                         d.getRooms()
                                 .stream()

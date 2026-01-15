@@ -11,13 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class DayItineraryResponse {
-
     private String dayId;
-
     private Date itineraryDay;
-
     private boolean roomsOpted;
     private boolean transportOpted;
+    private Integer noOfUnits;
     private List<RoomSummaryResponse> rooms;
     private List<TransportResponse> transports;
 }
