@@ -19,6 +19,9 @@ spring:
     gcp:
       bucket:
         name: mindful_mountain_business
+        prefix_url: https://storage.googleapis.com/%s/%s
+        template: queries/template/query.html
+        invoice: queries/invoice/
       project-id: gothic-augury-439121-p8
       #bucket details
 server:
