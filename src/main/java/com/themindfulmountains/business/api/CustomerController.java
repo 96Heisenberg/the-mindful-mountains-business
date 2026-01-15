@@ -21,7 +21,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
         customerService.addCustomer(customer);
-        return ResponseEntity.ok("Customer added successfully!!");
+        return ResponseEntity.ok("Customer added successfully!");
     }
 
     @GetMapping("/all")
