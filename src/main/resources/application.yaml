@@ -20,10 +20,6 @@ spring:
       bucket:
         name: mindful_mountain_business
       project-id: gothic-augury-439121-p8
-      storage:
-        credentials:
-          #location: classpath:gcp-key.json
-          #location: ${{ secrets.GCP_SA_KEY }}
       #bucket details
 server:
   port: ${PORT:8080}
