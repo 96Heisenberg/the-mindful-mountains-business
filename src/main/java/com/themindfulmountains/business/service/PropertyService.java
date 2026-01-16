@@ -55,7 +55,9 @@ public class PropertyService {
             property.setLocation(payload.getLocation());
             property.setContactNo(payload.getContactNo());
             property.setEmailId(payload.getEmailId());
-            property.setImageUrls(payload.getImageUrls());
+            if(!payload.getImageUrls().isEmpty()){
+                property.getImageUrls().addAll(payload.getImageUrls());
+            }
             property.setActive(payload.isActive());
 
             repository.save(property);
