@@ -5,17 +5,12 @@ spring:
     url: jdbc:postgresql://35.200.209.29:5432/postgres
     username: postgres
     password: mmdb@1234
-
-  # JPA configurations -
-  # DDL Auto enablement gives power hibernate to Automatically update the database schema based on the entity mappings.
-  # We have added liquibase hence its job to update tables now
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-  liquibase:
-    enabled: true
-
-server:
-  port: ${PORT:8080}
-  address: 0.0.0.0
+    #Bucket Configurations
+  cloud:
+    gcp:
+      bucket:
+        name: mindful_mountain_business
+        prefix_url: https://storage.googleapis.com/%s/%s
+        template: queries/template/query.html
+        invoice: queries/invoice/
+      project-id: gothic-augury-439121-p8
