@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -42,7 +43,7 @@ public class Property {
     @Type(type = "jsonb") // Enable JSONB storage
     @Column(name = "image_urls", columnDefinition = "jsonb")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> imageUrls;
+    private List<String> imageUrls = new ArrayList<>();
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms;
