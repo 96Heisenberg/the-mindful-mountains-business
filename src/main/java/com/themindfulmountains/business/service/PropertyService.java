@@ -56,7 +56,7 @@ public class PropertyService {
             property.setContactNo(payload.getContactNo());
             property.setEmailId(payload.getEmailId());
             if(!payload.getImageUrls().isEmpty()){
-                property.getImageUrls().addAll(payload.getImageUrls());
+                property.setImageUrls(payload.getImageUrls());
             }
             property.setActive(payload.isActive());
 
