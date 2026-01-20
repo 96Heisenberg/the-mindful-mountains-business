@@ -1,122 +1,252 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Travel Itinerary</title>
-
+    <title>Mindful Mountain - Itinerary</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 13px; color: #333; }
-        .header { text-align: center; border-bottom: 2px solid #444; margin-bottom: 20px; }
-        .section { margin-top: 15px; }
-        .section-title { font-weight: bold; background-color: #f0f0f0; padding: 8px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        th, td { border: 1px solid #999; padding: 6px; }
-        th { background-color: #f2f2f2; }
-        .right { text-align: right; }
-        .total-box { width: 40%; float: right; margin-top: 20px; }
+        /* Mindful Mountain Theme Variables */
+        :root {
+            --forest: #14532d;
+            --gold: #c59b3d;
+            --slate: #334155;
+            --mist: #f8fafc;
+            --fog: #e2e8f0;
+        }
+
+        @page {
+            margin: 0.5in;
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+                font-size: 9px;
+                color: #64748b;
+            }
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 12px;
+            color: var(--slate);
+            line-height: 1.5;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top Brand Bar */
+        .brand-accent {
+            height: 5px;
+            background: linear-gradient(to right, var(--forest), var(--gold));
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+
+        .header h2 {
+            color: var(--forest);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .header p { color: var(--gold); font-weight: bold; margin-top: 0; }
+
+        .section { margin-top: 25px; }
+
+        .section-title {
+            font-weight: bold;
+            color: #ffffff;
+            background-color: var(--forest);
+            padding: 10px 15px;
+            border-radius: 4px 20px 4px 4px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid var(--fog); padding: 10px; text-align: left; }
+        th { background-color: var(--mist); color: var(--forest); font-size: 11px; text-transform: uppercase; width: 25%; }
+
+        .day-header {
+            color: var(--forest);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        /* Property Gallery Customization */
+        .property-card {
+            background-color: var(--mist);
+            border: 1px solid var(--fog);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .property-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--forest);
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .image-row { width: 100%; }
+        .prop-img {
+            width: 31%; /* Fits 3 images side-by-side */
+            height: 110px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-right: 1.5%;
+        }
+
+        .transport-box {
+            background: #fffbeb; /* Light gold tint */
+            border-left: 4px solid var(--gold);
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .total-box {
+            width: 45%;
+            float: right;
+            margin-top: 40px;
+        }
+
+        .total-box table { border: 2px solid var(--forest); }
+        .total-box th {
+            background-color: var(--forest);
+            color: #ffffff;
+            font-size: 14px;
+            padding: 15px;
+        }
+        .total-box td {
+            font-size: 18px;
+            color: var(--forest);
+            font-weight: bold;
+            text-align: right;
+            padding: 15px;
+        }
+
         .clear { clear: both; }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            border-top: 1px solid var(--fog);
+            padding-top: 20px;
+        }
+        .footer-logo { color: var(--gold); font-weight: bold; font-size: 14px; }
     </style>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
+<div class="brand-accent"></div>
+
 <div class="header">
-    <h2>Travel Itinerary</h2>
-    <p>Itinerary ID:
-        <b th:text="${itinerary?.itineraryId ?: 'N/A'}"></b>
-    </p>
+    <h2>MINDFUL MOUNTAIN</h2>
+    <p>Exquisite Experiences</p>
+    <div style="font-size: 10px; color: #64748b;">Itinerary ID: <span th:text="${itinerary?.itineraryId}"></span></div>
 </div>
 
-<!-- ================= CUSTOMER ================= -->
 <div class="section">
-    <div class="section-title">Customer Details</div>
-
+    <div class="section-title">Expedition Members</div>
     <table>
         <tr>
-            <th>Name</th>
+            <th>Primary Guest</th>
             <td th:text="${itinerary?.customer?.name ?: 'N/A'}"></td>
-
-            <th>Email</th>
-            <td th:text="${itinerary?.customer?.email ?: 'N/A'}"></td>
+            <th>Group Size</th>
+            <td>
+                <span th:text="${itinerary?.noOfAdults ?: 0}"></span> Adults,
+                <span th:text="${itinerary?.noOfChilds ?: 0}"></span> Children
+            </td>
         </tr>
         <tr>
-            <th>Contact</th>
-            <td th:text="${itinerary?.customer?.contactNo ?: 'N/A'}"></td>
-
-            <th>Age</th>
-            <td th:text="${itinerary?.customer?.age ?: '-'}"></td>
+            <th>Contact Details</th>
+            <td colspan="3">
+                <span th:text="${itinerary?.customer?.contactNo}"></span> |
+                <span th:text="${itinerary?.customer?.email}"></span>
+            </td>
         </tr>
     </table>
 </div>
 
-<!-- ================= ITINERARY SUMMARY ================= -->
 <div class="section">
-    <div class="section-title">Itinerary Summary</div>
-
-    <table>
-        <tr>
-            <th>No. of Adults</th>
-            <td th:text="${itinerary?.noOfAdults ?: 0}"></td>
-
-            <th>No. of Children</th>
-            <td th:text="${itinerary?.noOfChilds ?: 0}"></td>
-        </tr>
-    </table>
-</div>
-
-<!-- ================= DAY WISE ITINERARY ================= -->
-<div class="section">
-    <div class="section-title">Day-wise Itinerary</div>
+    <div class="section-title">The Roadmap</div>
 
     <div th:if="${itinerary?.dayItineraries != null and !#lists.isEmpty(itinerary.dayItineraries)}">
+        <div th:each="day, stat : ${itinerary.dayItineraries}" style="page-break-inside: avoid;">
 
-        <div th:each="day, stat : ${itinerary.dayItineraries}">
-            <h4>
-                Day <span th:text="${stat.index + 1}"></span> -
-                <span th:text="${day.itineraryDay != null ? #dates.format(day.itineraryDay,'dd-MMM-yyyy') : 'N/A'}"></span>
+            <h4 class="day-header">
+                DAY <span th:text="${stat.index + 1}"></span> &mdash;
+                <span th:text="${day.itineraryDay != null ? #dates.format(day.itineraryDay,'dd MMMM yyyy') : 'Date TBD'}"></span>
             </h4>
 
-            <table>
+            <table th:if="${day.roomsOpted}">
                 <tr>
-                    <th>Rooms Opted</th>
-                    <td th:text="${day.roomsOpted ? 'Yes' : 'No'}"></td>
-
-                    <th>Transport Opted</th>
-                    <td th:text="${day.transportOpted ? 'Yes' : 'No'}"></td>
-
-                    <th>No. of Units</th>
-                    <td th:text="${day.noOfUnits ?: 0}"></td>
+                    <th>Stay Arrangement</th>
+                    <td colspan="3">
+                        <span th:each="room, rStat : ${day.rooms}">
+                            <strong th:text="${room.roomName}"></strong>
+                            <span th:if="${!rStat.last}"> &amp; </span>
+                        </span>
+                        (<span th:text="${day.noOfUnits ?: 0}"></span> Units)
+                    </td>
                 </tr>
             </table>
 
-            <!-- Transport -->
+            <div th:if="${day.roomsOpted and !#lists.isEmpty(day.rooms)}">
+                <div th:each="room : ${day.rooms}" th:if="${room.property != null}">
+                    <div class="property-card">
+                        <p class="property-title">
+                            🏔️ <span th:text="${room.property.name}"></span>, <span th:text="${room.property.location}"></span>
+                        </p>
+                        <div class="image-row">
+                            <span th:each="imgUrl, imgStat : ${room.property.imageUrls}" th:if="${imgStat.index < 3}">
+                                <img th:src="${imgUrl}" class="prop-img" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-            <hr/>
+            <div th:if="${day.transportOpted and !#lists.isEmpty(day.transports)}" class="transport-box">
+                <strong>🚗 Transit Arrangement:</strong>
+                <span th:text="${day.transports[0].name}"></span> &mdash;
+                <span th:text="${day.transports[0].description}"></span>
+            </div>
         </div>
-
-    </div>
-
-    <div th:if="${itinerary?.dayItineraries == null or #lists.isEmpty(itinerary.dayItineraries)}">
-        <p>No day itinerary available.</p>
     </div>
 </div>
 
-<!-- ================= TOTAL COST ================= -->
 <div class="total-box">
     <table>
         <tr>
-            <th>B2B Total</th>
-            <td class="right" th:text="${itinerary?.b2bTotalItineraryCost ?: 0}"></td>
-        </tr>
-        <tr>
-            <th>B2C Total</th>
-            <td class="right" th:text="${itinerary?.b2cTotalItineraryCost ?: 0}"></td>
+            <th>Total Investment</th>
+            <td class="right">
+                ₹ <span th:text="${#numbers.formatDecimal(itinerary?.b2cTotalItineraryCost ?: 0, 1, 'COMMA', 2, 'POINT')}"></span>
+            </td>
         </tr>
     </table>
 </div>
 
 <div class="clear"></div>
+
+<div class="footer">
+    <div class="footer-logo">MINDFUL MOUNTAIN</div>
+    <p style="font-size: 10px; color: #94a3b8; max-width: 400px; margin: 10px auto;">
+        Our itineraries are crafted with soul. We believe in slow travel, local impact, and the transformative power of the mountains.
+    </p>
+    <p style="font-size: 9px; color: #cbd5e1;">© 2026 Mindful Mountain. All rights reserved.</p>
+</div>
 
 </body>
 </html>
